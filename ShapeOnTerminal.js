@@ -7,10 +7,19 @@ import fs from 'fs';
 var lado = "";
 var centro = "";
 var outpuType = "web";
+var numOfShapes = 0;
+const inicio = Date.now();
+
+var momento = new Date();
+
+var DiaDeHoy =  momento.getDate()  + '-' + (momento.getMonth() +1 ) + '-' + momento.getFullYear();
+var horaInicial = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
+
+console.log("Inicio: -> " + inicio)
 
 for (let j = 0; j < process.argv.length; j++) {
 
-    console.log(j + ' -> ' + (process.argv[j]));
+    console.log( j + ' ->  ' + (process.argv[j]));
 
     if (j==2) {
         lado = process.argv[j];
@@ -82,6 +91,7 @@ function processJsonRequests(filePath){
 
           // acumular shapes
           fileContent += tempFileContent;
+          numOfShapes++;
         }
 
         writeToFile("./Data/" + nombre + ".txt", fileContent, (err)=>{ 
@@ -95,8 +105,35 @@ function processJsonRequests(filePath){
             EnviarShapeToClient(nombre + ".txt", correo);
         }
       }
+      momento = new Date();
+      var horaFinal = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
+
+      const final = Date.now();
+      const duracion = (final - inicio)/1000;
+
+      console.log("\n\n");
+      console.log("*******************************************");
+      console.log("*");
+      console.log("*   Programa: ShapeMaker");
+      console.log("*");
+      console.log("*   Fecha de Ejecucion: " + DiaDeHoy);
+      console.log("*   Numero de Shapes: "  + numOfShapes);
+      console.log("*   Inicio: -> " + horaInicial);
+      console.log("*   Final:  -> " + horaFinal);
+      console.log("*");
+      console.log("*   Ducarion de Ejecucion  = " + duracion);
+      console.log("*");
+      console.log("*******************************************");
+      console.log("\n\n");
+
     } catch (err) {
       console.log('Error parsing JSON:', err);
     }
   });
 };
+
+/*
+Inicio: -> 1632236289420
+Final: -> 1632236290782
+Este programa fue ejecutado en  = 1.362
+*/
