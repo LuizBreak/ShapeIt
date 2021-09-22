@@ -1,0 +1,71 @@
+{
+    "shapes" : [
+            {
+                "nombre": "Arielle",
+
+                "tipoDeEntrega": "correo",
+                "correo": "arielle@gmail.com",
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1
+
+                    },
+                    {
+                        "lado": ".",
+                        "centro": ".",
+                        "cantidad": 1
+
+                    }
+                ]            },
+            {
+                "nombre": "Luiz",
+                "tipoDeEntrega": "correo",
+                "correo": "luiz@gmail.com",
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1
+
+                    }
+                ]
+            },
+            {
+                "nombre": "Melissa",
+                "tipoDeEntrega": "correo",
+                "correo": "melissa@gmail.com",
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1
+
+                    },
+                    {
+                        "lado": ".",
+                        "centro": "-",
+                        "cantidad": 1
+
+                    }
+                ]            
+            },
+            {
+                "nombre": "Franklin",
+                "tipoDeEntrega": "correo",
+                "correo": "franklin@gmail.com",
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 2
+                    }
+                ]            
+            }
+        ]
+}

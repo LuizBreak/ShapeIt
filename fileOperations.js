@@ -50,7 +50,7 @@ export function jsonReader(filePath) {
 }
 
 export function EnviarShapeToClient(nombreDelArchivo, correo){
-  console.log ('Correo enviado a:' + correo + " con el adjunto: " + nombreDelArchivo)
+  // console.log ('Correo enviado a:' + correo + " con el adjunto: " + nombreDelArchivo)
 };
 
 

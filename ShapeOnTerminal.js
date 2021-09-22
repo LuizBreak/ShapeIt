@@ -4,18 +4,20 @@ import * as Shaper from './DrawShape.js';
 import { writeToFile, deleteFile, readFromFile, jsonReader, EnviarShapeToClient} from  './fileOperations.js'
 import fs from 'fs';
 
+// arg[] parameters
 var lado = "";
 var centro = "";
 var outpuType = "web";
+var flashOnScreen = false;
+
 var numOfShapes = 0;
 const inicio = Date.now();
-
 var momento = new Date();
 
 var DiaDeHoy =  momento.getDate()  + '-' + (momento.getMonth() +1 ) + '-' + momento.getFullYear();
 var horaInicial = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
 
-console.log("Inicio: -> " + inicio)
+// console.log("Inicio: -> " + inicio)
 
 for (let j = 0; j < process.argv.length; j++) {
 
@@ -29,6 +31,9 @@ for (let j = 0; j < process.argv.length; j++) {
         if (process.argv[j].length != 0){
             outpuType = process.argv[j];
         }
+    } else if (j==5){
+      flashOnScreen = (process.argv[j] == 'true');
+      // console.log("Flash: " + flashOnScreen)
     }
 }
 // producing one shape
@@ -53,9 +58,11 @@ for (let j = 0; j < process.argv.length; j++) {
 
 
 // Now Let's Process all json requests from the file
-processJsonRequests('./shapesRequest.json');
+processJsonRequests('./shapesRequest.v2.json', flashOnScreen);
 
-function processJsonRequests(filePath){
+// TrabajandoConArreglos('Nuestro programa es muy chulo!');
+
+function processJsonRequests(filePath, flashOnScreen){
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
@@ -72,37 +79,47 @@ function processJsonRequests(filePath){
       // una vuelta para cada solicitud
       for (let index = 0; index < solicitudes.shapes.length; index++) { 
 
-        var lado = solicitudes.shapes[index].lado;
-        var centro = solicitudes.shapes[index].centro;      
-        var nombre = solicitudes.shapes[index].nombre; 
-        var tipoDeEntrega = solicitudes.shapes[index].tipoDeEntrega;
-        var correo = solicitudes.shapes[index].correo; 
-        var cantidad = solicitudes.shapes[index].cantidad;         
+        const nombre = solicitudes.shapes[index].nombre; 
+        const tipoDeEntrega = solicitudes.shapes[index].tipoDeEntrega;
+        const correo = solicitudes.shapes[index].correo; 
+        const numOfOrders = solicitudes.shapes[index].orders.length;
 
-        var tempFileContent = "";
-        var fileContent = "";
+        for (let j = 0; j < numOfOrders; j++) {
+          
+          var cantidad = solicitudes.shapes[index].orders[j].cantidad;
+          var lado = solicitudes.shapes[index].orders[j].lado;
+          var centro = solicitudes.shapes[index].orders[j].centro; 
+          
+          var tempFileContent = "";
+          var fileContent = "";
 
-        // una vuelta para cada cantidad
-        for (let index = 0; index < cantidad; index++) {
+          // console.log('Inicio-> Cliente:' + nombre + ' Cantidad de Shapes: ' + cantidad + "\n\n");
+          console.log("\n Order [" + nombre + "] [" + j + "] | " + cantidad + " | " + lado + " | " + centro + "\n");
 
           // producir e imprimir solo un shape en la pantalla
-          tempFileContent = Shaper.ShapeController(lado , centro, outpuType);
-          console.log(tempFileContent + "\n\n");
+          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, flashOnScreen);
+          
+          // console.log(tempFileContent + "\n\n");
 
-          // acumular shapes
-          fileContent += tempFileContent;
-          numOfShapes++;
-        }
+          // una vuelta para cada cantidad
+          for (let index = 0; index < cantidad; index++) {
+            // acumular shapes
+            fileContent += tempFileContent;
+            numOfShapes++;
+          }
 
-        writeToFile("./Data/" + nombre + ".txt", fileContent, (err)=>{ 
-            if (err) { 
-              console.log('Error Message:' + err); 
-            }
+          writeToFile("./Data/" + nombre + ".txt", fileContent, (err)=>{ 
+              if (err) { 
+                console.log('Error Message:' + err); 
+              }
 
-        });
+          });
 
-        if (tipoDeEntrega == "correo") {       
-            EnviarShapeToClient(nombre + ".txt", correo);
+          if (tipoDeEntrega == "correo") {       
+              EnviarShapeToClient(nombre + ".txt", correo);
+          }
+          // console.log('Final: Cliente:' + nombre +  "\n\n");
+          
         }
       }
       momento = new Date();
@@ -132,8 +149,59 @@ function processJsonRequests(filePath){
   });
 };
 
+// function TrabajandoConArreglos(nombreDelUsuario){
+
+//   let listaDeElementos = nombreDelUsuario.split("");
+//   console.log(listaDeElementos);
+
+//   for (let index = 0; index < listaDeElementos.length; index += 2) {
+//     //listaDeElementos[index] = index;
+//     console.log(listaDeElementos[index])
+//   }
+// }
+
+
 /*
-Inicio: -> 1632236289420
-Final: -> 1632236290782
-Este programa fue ejecutado en  = 1.362
+
+*******************************************
+*
+*   Programa: ShapeMaker
+*
+*   Fecha de Ejecucion: 21-9-2021
+*   Numero de Shapes: 103
+*   Inicio: -> 12:57:58
+*   Final:  -> 12:58:6
+*
+*   Ducarion de Ejecucion  = 7.739
+*
+*******************************************
+
+*******************************************
+*
+*   Programa: ShapeMaker
+*
+*   Fecha de Ejecucion: 21-9-2021
+*   Numero de Shapes: 103
+*   Inicio: -> 13:25:54
+*   Final:  -> 13:25:55
+*
+*   Ducarion de Ejecucion  = 1.096
+*
+*******************************************
+
+*******************************************
+*
+*   Programa: ShapeMaker
+*
+*   Fecha de Ejecucion: 21-9-2021
+*   Numero de Shapes: 103
+*   Inicio: -> 13:39:21
+*   Final:  -> 13:39:21
+*
+*   Ducarion de Ejecucion  = 0.067
+*
+*******************************************
 */
+
+
+

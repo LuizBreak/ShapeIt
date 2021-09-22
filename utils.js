@@ -1,18 +1,20 @@
-export function PonerLetras(Tamano, LetraDeseada) {
+export function PonerLetras(Tamano, LetraDeseada, flash=false) {
+
     var MiFila = "";
+  
     for (var i = 0; i < Tamano; i++) {
       MiFila += LetraDeseada;
       // console.log(LetraDeseada);
       try {
-        // TODO: implement delay promise
-        // await sleep(1000);
-        process.stdout.write(LetraDeseada)
+
+        if (flash) process.stdout.write(LetraDeseada)
+  
         // for (let index = 0; index < 200000; index++) {
         //   // Just a waiting time
         // }
 
         } catch (error) {
-          // prodeed 
+          // carry on 
       }
     }
     return MiFila;

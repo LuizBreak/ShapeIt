@@ -30,7 +30,7 @@
                 "nombre": "Franklin",
                 "tipoDeEntrega": "correo",
                 "correo": "franklin@gmail.com",
-                "cantidad": 100
+                "cantidad": 1
             }
         ]
 }
