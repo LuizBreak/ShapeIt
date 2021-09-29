@@ -58,11 +58,12 @@ for (let j = 0; j < process.argv.length; j++) {
 
 
 // Now Let's Process all json requests from the file
-processJsonRequests('./shapesRequest.v2.json', flashOnScreen);
+processJsonRequests('./Data/shapesRequest.v4.json', flashOnScreen);
 
 // TrabajandoConArreglos('Nuestro programa es muy chulo!');
 
 function processJsonRequests(filePath, flashOnScreen){
+
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
@@ -74,30 +75,32 @@ function processJsonRequests(filePath, flashOnScreen){
 
     try {
 
-      const solicitudes = JSON.parse(data);
-  
-      // una vuelta para cada solicitud
-      for (let index = 0; index < solicitudes.shapes.length; index++) { 
+      const collection = JSON.parse(data);
 
-        const nombre = solicitudes.shapes[index].nombre; 
-        const tipoDeEntrega = solicitudes.shapes[index].tipoDeEntrega;
-        const correo = solicitudes.shapes[index].correo; 
-        const numOfOrders = solicitudes.shapes[index].orders.length;
+      // una vuelta para cada solicitud
+      for (let index = 0; index < collection.Solicitudes.length; index++) { 
+
+        const nombre = collection.Solicitudes[index].nombre; 
+        const tipoDeEntrega = collection.Solicitudes[index].tipoDeEntrega;
+        const correo = collection.Solicitudes[index].correo; 
+        const numOfOrders = collection.Solicitudes[index].orders.length;
+
+        var fileContent = "";
 
         for (let j = 0; j < numOfOrders; j++) {
           
-          var cantidad = solicitudes.shapes[index].orders[j].cantidad;
-          var lado = solicitudes.shapes[index].orders[j].lado;
-          var centro = solicitudes.shapes[index].orders[j].centro; 
+          var cantidad = collection.Solicitudes[index].orders[j].cantidad;
+          var lado = collection.Solicitudes[index].orders[j].lado;
+          var centro = collection.Solicitudes[index].orders[j].centro; 
+          var ratio = collection.Solicitudes[index].orders[j].ratio; 
           
+          // console.log('Inicio-> Cliente:' + nombre + ' Cantidad de solicitudes: ' + cantidad + "\n\n");
+          console.log("\n Order [" + nombre + "] [" + j + "] | " + cantidad + " | " + lado + " | " + centro + " | " + "\n");
+
           var tempFileContent = "";
-          var fileContent = "";
-
-          // console.log('Inicio-> Cliente:' + nombre + ' Cantidad de Shapes: ' + cantidad + "\n\n");
-          console.log("\n Order [" + nombre + "] [" + j + "] | " + cantidad + " | " + lado + " | " + centro + "\n");
-
+          
           // producir e imprimir solo un shape en la pantalla
-          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, flashOnScreen);
+          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, "Square", flashOnScreen, ratio);
           
           // console.log(tempFileContent + "\n\n");
 
@@ -135,6 +138,7 @@ function processJsonRequests(filePath, flashOnScreen){
       console.log("*");
       console.log("*   Fecha de Ejecucion: " + DiaDeHoy);
       console.log("*   Numero de Shapes: "  + numOfShapes);
+      console.log("*");
       console.log("*   Inicio: -> " + horaInicial);
       console.log("*   Final:  -> " + horaFinal);
       console.log("*");
