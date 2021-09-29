@@ -49,13 +49,22 @@ function MakeDiamond (c1, c2, outputType, flash, Ratio){
 }
 function MakeSquare (c1, c2, outputType, flash, Ratio){
 
-/*
+/* Equations and Shape Explation
 
-    var colunas = Math.round(24 * Ratio);    // # de columnas del area de trabajo
-    var centro = Math.round((colunas/2) * Ratio);     // # de columnas dentro del shape
+  Pefect Base Square:
 
-    var rows = Math.round((colunas/2) * Ratio);       // # de vultas de una mitad
-    var lateral = Math.round((colunas/4)* Ratio);      // # de columnas afuera del shape
+    var colunas = Math.round(24 * Ratio);      // # de columnas del area de trabajo
+    var centro = Math.round((10) * Ratio);     // # de columnas dentro del shape
+
+    var rows = Math.round((6) * Ratio);        // # de vultas de una mitad
+    var lateral = Math.round((6)* Ratio);      // # de columnas afuera del shape
+
+  Generalized Base Square
+    var colunas = Math.round(24 * Ratio);             // # de columnas del area de trabajo
+    var centro = Math.round((colunas*0.4) * Ratio);   // # de columnas dentro del shape
+
+    var rows = Math.round((colunas*0.25) * Ratio);    // # de vultas de una mitad
+    var lateral = Math.round((colunas*0.25)* Ratio);  // # de columnas afuera del shape
 
     lateral =(colunas - (centro +  2))/2;
 
@@ -77,13 +86,20 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
 
   */
 
-    var colunas = Math.round(24 * Ratio);    // # de columnas del area de trabajo
-    var centro = Math.round((10) * Ratio);     // # de columnas dentro del shape
+    var colunas = Math.round(24 * Ratio);             // # de columnas del area de trabajo
+    var centro = Math.round((colunas * 0.4) * Ratio);   // # de columnas dentro del shape
 
-    var rows = Math.round((6) * Ratio);       // # de vultas de una mitad
-    var lateral = Math.round((6)* Ratio);      // # de columnas afuera del shape
+    var rows = Math.round((colunas * 0.25) * Ratio);    // # de vultas de una mitad
+    var lateral = Math.round((colunas * 0.25) * Ratio);  // # de columnas afuera del shape
 
-    //lateral =(colunas - (centro +  2))/2;
+    // Make sure to adjust colunas after round up problems
+    const finalCuerpoSize = (2 * lateral) + centro + 2;
+
+    if (colunas < finalCuerpoSize) {
+      colunas = finalCuerpoSize
+    } else if (colunas > finalCuerpoSize) {
+      centro += colunas-finalCuerpoSize
+    }
 
     var Shape = "";      // Contenido del shape
     var lineFeed = "\n";
@@ -95,36 +111,61 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
     }
 
     var headerFooter = Izquierda(colunas, c1, flash) + lineFeed;
-    var aberturaCierre = Izquierda(lateral, c1, flash)  + Centro(centro+2, "+", flash) +  Derecha(lateral, c1, flash) + lineFeed;
+    var aberturaCierre = Izquierda(lateral, c1, flash)  + "+" + Centro(centro, "-", flash) +  "+" +  Derecha(lateral, c1, flash) + lineFeed;
     var cuerpo = Izquierda(lateral, c1, flash) + Centro(1, "|", flash) + Centro(centro, c2, flash) + Centro(1, "|", flash) + Derecha(lateral, c1, flash) + lineFeed;
 
     // console.log("Flash in Controller: " + flash + " Output: " + outputType)
     var limite = Math.round((rows*2) * 0.3);
     
-    for (var i = 0; i < rows; i++) {
+    const ShapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
+    Shape = ShapeConfiguration;
 
-      if (i == (limite-1)) {
-        Shape += aberturaCierre
-      } else if( i < limite-1){
-        Shape += headerFooter;
-      } else { // mis otros 70%
-        Shape += cuerpo;
+    for (var i = 0; i < (rows * 2); i++) {
+
+      switch (true) {
+
+        case (i == (limite - 1)):
+          Shape += aberturaCierre
+          break;
+        case (i < limite - 1):
+          Shape += headerFooter;
+          break;
+        case (i == ((rows*2) - limite)):
+          Shape += aberturaCierre;
+          break;
+        case (i > ((rows*2) - limite)):
+          Shape += headerFooter;
+          break;
+        default:
+          Shape += cuerpo;
+          break;
       }
+
+      // if (i == (limite - 1)) {
+      //   Shape += aberturaCierre
+      // } else if (i < limite - 1){
+      //   Shape += headerFooter;
+      // } else if (i == (rows - limite)){
+      //   Shape += aberturaCierre;
+      // } else if (i > (rows - limite)){
+      //   Shape += headerFooter;
+      // } else { // mis otros 70%
+      //   Shape += cuerpo;
+      // } 
+      
       GetLineFeed(outputType, flash);
-
     }
-    for (var i = rows; i > 0; i--) {
+    // for (var i = rows; i > 0; i--) {
 
-      if (i == (limite)) {
-        Shape += aberturaCierre
-      } else if( i < limite){
-        Shape += headerFooter;
-      } else { // mis otros 70%
-        Shape += cuerpo;
-      }
-      GetLineFeed(outputType, flash);
-
-    }
+    //   if (i == (limite)) {
+    //     Shape += aberturaCierre
+    //   } else if( i < limite){
+    //     Shape += headerFooter;
+    //   } else { // mis otros 70%
+    //     Shape += cuerpo;
+    //   }
+    //   GetLineFeed(outputType, flash);
+    // }
     return Shape;
 }
 function GetLineFeed (outputType, flash){
