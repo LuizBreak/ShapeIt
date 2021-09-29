@@ -86,10 +86,10 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
 
   */
 
-    var colunas = Math.round(24 * Ratio);             // # de columnas del area de trabajo
-    var centro = Math.round((colunas * 0.4) * Ratio);   // # de columnas dentro del shape
+    var colunas = Math.round(24 * Ratio);                // # de columnas del area de trabajo
+    var centro = Math.round((colunas * 0.4) * Ratio);    // # de columnas dentro del shape
 
-    var rows = Math.round((colunas * 0.25) * Ratio);    // # de vultas de una mitad
+    var rows = Math.round((colunas * 0.25) * Ratio);     // # de vultas de una mitad
     var lateral = Math.round((colunas * 0.25) * Ratio);  // # de columnas afuera del shape
 
     // Make sure to adjust colunas after round up problems
@@ -110,15 +110,15 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
       lineFeed = "\n";
     }
 
-    var headerFooter = Izquierda(colunas, c1, flash) + lineFeed;
+    var headerFooter = Centro(colunas, c1, flash) + lineFeed;
     var aberturaCierre = Izquierda(lateral, c1, flash)  + "+" + Centro(centro, "-", flash) +  "+" +  Derecha(lateral, c1, flash) + lineFeed;
     var cuerpo = Izquierda(lateral, c1, flash) + Centro(1, "|", flash) + Centro(centro, c2, flash) + Centro(1, "|", flash) + Derecha(lateral, c1, flash) + lineFeed;
 
     // console.log("Flash in Controller: " + flash + " Output: " + outputType)
     var limite = Math.round((rows*2) * 0.3);
     
-    const ShapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
-    Shape = ShapeConfiguration;
+    const shapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
+    Shape = shapeConfiguration;
 
     for (var i = 0; i < (rows * 2); i++) {
 
@@ -152,7 +152,7 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
       // } else { // mis otros 70%
       //   Shape += cuerpo;
       // } 
-      
+
       GetLineFeed(outputType, flash);
     }
     // for (var i = rows; i > 0; i--) {

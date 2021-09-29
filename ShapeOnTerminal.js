@@ -4,11 +4,11 @@ import * as Shaper from './DrawShape.js';
 import { writeToFile, deleteFile, readFromFile, jsonReader, EnviarShapeToClient} from  './fileOperations.js'
 import fs from 'fs';
 
-// arg[] parameters
 var lado = "";
 var centro = "";
 var outpuType = "web";
 var flashOnScreen = false;
+var filePath = "";
 
 var numOfShapes = 0;
 const inicio = Date.now();
@@ -34,6 +34,8 @@ for (let j = 0; j < process.argv.length; j++) {
     } else if (j==5){
       flashOnScreen = (process.argv[j] == 'true');
       // console.log("Flash: " + flashOnScreen)
+    } else if (j==6){
+      filePath = process.argv[j];
     }
 }
 // producing one shape
@@ -58,7 +60,7 @@ for (let j = 0; j < process.argv.length; j++) {
 
 
 // Now Let's Process all json requests from the file
-processJsonRequests('./Data/shapesRequest.v4.json', flashOnScreen);
+processJsonRequests(filePath, flashOnScreen);
 
 // TrabajandoConArreglos('Nuestro programa es muy chulo!');
 
@@ -140,9 +142,9 @@ function processJsonRequests(filePath, flashOnScreen){
       console.log("*   Numero de Shapes: "  + numOfShapes);
       console.log("*");
       console.log("*   Inicio: -> " + horaInicial);
-      console.log("*   Final:  -> " + horaFinal);
+      console.log("*   Fin:    -> " + horaFinal);
       console.log("*");
-      console.log("*   Ducarion de Ejecucion  = " + duracion);
+      console.log("*   Duracion de Ejecucion  = " + duracion);
       console.log("*");
       console.log("*******************************************");
       console.log("\n\n");
@@ -163,49 +165,3 @@ function processJsonRequests(filePath, flashOnScreen){
 //     console.log(listaDeElementos[index])
 //   }
 // }
-
-
-/*
-
-*******************************************
-*
-*   Programa: ShapeMaker
-*
-*   Fecha de Ejecucion: 21-9-2021
-*   Numero de Shapes: 103
-*   Inicio: -> 12:57:58
-*   Final:  -> 12:58:6
-*
-*   Ducarion de Ejecucion  = 7.739
-*
-*******************************************
-
-*******************************************
-*
-*   Programa: ShapeMaker
-*
-*   Fecha de Ejecucion: 21-9-2021
-*   Numero de Shapes: 103
-*   Inicio: -> 13:25:54
-*   Final:  -> 13:25:55
-*
-*   Ducarion de Ejecucion  = 1.096
-*
-*******************************************
-
-*******************************************
-*
-*   Programa: ShapeMaker
-*
-*   Fecha de Ejecucion: 21-9-2021
-*   Numero de Shapes: 103
-*   Inicio: -> 13:39:21
-*   Final:  -> 13:39:21
-*
-*   Ducarion de Ejecucion  = 0.067
-*
-*******************************************
-*/
-
-
-
