@@ -23,57 +23,36 @@ for (let j = 0; j < process.argv.length; j++) {
 
     console.log( j + ' ->  ' + (process.argv[j]));
 
-    if (j==2) {
-        lado = process.argv[j];
-    } else if (j==3) {
-        centro = process.argv[j];
-    } else if (j==4)  {
+    if (j==2)  {
         if (process.argv[j].length != 0){
             outpuType = process.argv[j];
         }
-    } else if (j==5){
+    } else if (j==3){
       flashOnScreen = (process.argv[j] == 'true');
       // console.log("Flash: " + flashOnScreen)
-    } else if (j==6){
-      filePath = process.argv[j];
+    } else if (j==4){
+        filePath = process.argv[j];
     }
 }
-// producing one shape
-// const fileContent = Shaper.ShapeController(lado, centro, outpuType);
 
-// saving shape to file
-// await writeToFile('shape1.3.txt', fileContent, (err)=>{ 
-//     if (err) { 
-//       console.log('Error Message:' + err); 
-//     } 
-// });
+if (filePath.length > 0){
+  // Now Let's Process all json requests from the file
+  processJsonRequests(filePath, flashOnScreen);
 
-// reading shape from a file
-// var finalContent = await readFromFile ('shape1.3.txt', (err)=>{ 
-//     if (err) { 
-//       console.log(err); 
-//     } 
-// });
-
-// printing shape to screen
-// console.log("\n\n" + finalContent + "\n\n");
-
-
-// Now Let's Process all json requests from the file
-processJsonRequests(filePath, flashOnScreen);
-
-// TrabajandoConArreglos('Nuestro programa es muy chulo!');
+} else {
+  // console.log("\x1b[31m%s\x1b[0m", "Error: Json path not provided!");
+  // console.log('\x1b[36m%s\x1b[0m', "Error: Json path not provided!");  //cyan
+  console.log('\x1b[33m%s\x1b[0m', "Error: Json path not provided!");  //yellow
+  process.exit;
+}
 
 function processJsonRequests(filePath, flashOnScreen){
-
 
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) {
       console.log('Error reading file:', err);
       return;
     }
-
-    // console.log(data);
 
     try {
 
@@ -154,14 +133,3 @@ function processJsonRequests(filePath, flashOnScreen){
     }
   });
 };
-
-// function TrabajandoConArreglos(nombreDelUsuario){
-
-//   let listaDeElementos = nombreDelUsuario.split("");
-//   console.log(listaDeElementos);
-
-//   for (let index = 0; index < listaDeElementos.length; index += 2) {
-//     //listaDeElementos[index] = index;
-//     console.log(listaDeElementos[index])
-//   }
-// }
