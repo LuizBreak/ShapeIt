@@ -39,24 +39,14 @@ function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
   const shapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows + lineFeed;
   Shape = shapeConfiguration;
 
-  for (var i = 0; i <= rows+1; i++) {
+  for (var i = 0; i <= (rows+1); i++) {
 
     if ( i <= (rows/2) ){
       lado = Math.round((rows/2)-i);
-      if( i == 110 ){
-        //Shape += Izquierda(lado, c1, flash) + "/\\" + Derecha(lado, c1, flash) + lineFeed;
-        //Shape += Izquierda(lado, c1, flash) + "/" + Centro(colunas - (2*lado), c2, flash) + "\\" + Derecha(lado, c1, flash) + lineFeed;
-      } else {
-        Shape += Izquierda(lado, c1, flash) + "/" + Centro(colunas - (2*lado), c2, flash) + "\\" + Derecha(lado, c1, flash) + lineFeed;
-      }
+      Shape += Izquierda(lado, c1, flash) + "/" + Centro(colunas - (2*lado), c2, flash) + "\\" + Derecha(lado, c1, flash) + lineFeed;
       if (outputType != "web" && flash) process.stdout.write("\n");
     } else {
-      if( i == 100 * rows ){
-        Shape += Izquierda(lado, c1, flash) + "\\" + Centro(colunas - (2*lado), c2, flash) + "/" + Derecha(lado, c1, flash) + lineFeed;
-        Shape += Izquierda(lado+1, c1, flash) + "\\/" + Derecha(lado+1, c1, flash) + lineFeed;
-      } else {
-        Shape += Izquierda(lado, c1, flash) + "\\" + Centro(colunas - (2*lado), c2, flash) + "/" + Derecha(lado, c1, flash) + lineFeed;
-      }
+      Shape += Izquierda(lado, c1, flash) + "\\" + Centro(colunas - (2*lado), c2, flash) + "/" + Derecha(lado, c1, flash) + lineFeed;
       lado += 1;
       if (outputType != "web" && flash) process.stdout.write("\n");
     }

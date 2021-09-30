@@ -9,9 +9,9 @@
                 [
                     {
                         "lado": "+",
-                        "centro": "+",
+                        "centro": "0",
                         "cantidad": 1,
-                        "ratio" : 5
+                        "ratio" : 3.5
 
                     }
                 ]            
