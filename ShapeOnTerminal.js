@@ -81,7 +81,7 @@ function processJsonRequests(filePath, flashOnScreen){
           var tempFileContent = "";
           
           // producir e imprimir solo un shape en la pantalla
-          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, "Square", flashOnScreen, ratio);
+          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, "Diamond", flashOnScreen, ratio);
           
           // console.log(tempFileContent + "\n\n");
 

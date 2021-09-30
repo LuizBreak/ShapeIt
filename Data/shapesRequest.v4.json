@@ -8,10 +8,10 @@
                 "orders" : 
                 [
                     {
-                        "lado": ".",
-                        "centro": ".",
+                        "lado": "+",
+                        "centro": "+",
                         "cantidad": 1,
-                        "ratio" : 1
+                        "ratio" : 5
 
                     }
                 ]            
