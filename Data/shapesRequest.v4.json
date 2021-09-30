@@ -5,13 +5,23 @@
 
                 "tipoDeEntrega": "correo",
                 "correo": "arielle@gmail.com",
+                "multipleFiles": true,
                 "orders" : 
                 [
                     {
-                        "lado": "+",
-                        "centro": "0",
-                        "cantidad": 1,
-                        "ratio" : 3.5
+                        "shape": "Square",
+                        "lado": ".",
+                        "centro": "+",
+                        "cantidad": 2,
+                        "ratio" : 2
+
+                    },
+                    {
+                        "shape": "Diamond",
+                        "lado": ".",
+                        "centro": "*",
+                        "cantidad": 3,
+                        "ratio" : 3
 
                     }
                 ]            

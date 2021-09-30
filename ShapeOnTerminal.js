@@ -14,8 +14,8 @@ var numOfShapes = 0;
 const inicio = Date.now();
 var momento = new Date();
 
-var DiaDeHoy =  momento.getDate()  + '-' + (momento.getMonth() +1 ) + '-' + momento.getFullYear();
-var horaInicial = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
+const DiaDeHoy =  momento.getDate()  + '-' + (momento.getMonth() +1 ) + '-' + momento.getFullYear();
+const horaInicial = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
 
 // console.log("Inicio: -> " + inicio)
 
@@ -64,24 +64,33 @@ function processJsonRequests(filePath, flashOnScreen){
         const nombre = collection.Solicitudes[index].nombre; 
         const tipoDeEntrega = collection.Solicitudes[index].tipoDeEntrega;
         const correo = collection.Solicitudes[index].correo; 
+        const multipleFiles = collection.Solicitudes[index].multipleFiles; 
         const numOfOrders = collection.Solicitudes[index].orders.length;
 
         var fileContent = "";
 
         for (let j = 0; j < numOfOrders; j++) {
           
-          var cantidad = collection.Solicitudes[index].orders[j].cantidad;
-          var lado = collection.Solicitudes[index].orders[j].lado;
-          var centro = collection.Solicitudes[index].orders[j].centro; 
-          var ratio = collection.Solicitudes[index].orders[j].ratio; 
-          
+          const cantidad = collection.Solicitudes[index].orders[j].cantidad;
+          const lado = collection.Solicitudes[index].orders[j].lado;
+          const centro = collection.Solicitudes[index].orders[j].centro; 
+          const ratio = collection.Solicitudes[index].orders[j].ratio; 
+          const shape = collection.Solicitudes[index].orders[j].shape; 
+
           // console.log('Inicio-> Cliente:' + nombre + ' Cantidad de solicitudes: ' + cantidad + "\n\n");
           console.log("\n Order [" + nombre + "] [" + j + "] | " + cantidad + " | " + lado + " | " + centro + " | " + "\n");
 
           var tempFileContent = "";
+         // if (multipleFiles) fileContent = "";
           
+          if (multipleFiles) {
+            fileContent = "";
+            var fileName = "./Data/" + nombre + "." + shape + ".order" +  j + ".txt";            
+          } else {
+            var fileName = "./Data/" + nombre + ".txt";
+          }
           // producir e imprimir solo un shape en la pantalla
-          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, "Diamond", flashOnScreen, ratio);
+          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, shape, flashOnScreen, ratio);
           
           // console.log(tempFileContent + "\n\n");
 
@@ -92,11 +101,10 @@ function processJsonRequests(filePath, flashOnScreen){
             numOfShapes++;
           }
 
-          writeToFile("./Data/" + nombre + ".txt", fileContent, (err)=>{ 
+          writeToFile(fileName, fileContent, (err)=>{ 
               if (err) { 
                 console.log('Error Message:' + err); 
               }
-
           });
 
           if (tipoDeEntrega == "correo") {       
@@ -104,8 +112,8 @@ function processJsonRequests(filePath, flashOnScreen){
           }
           // console.log('Final: Cliente:' + nombre +  "\n\n");
           
-        }
-      }
+        } "for-next Orders"
+      } "for-next Clients"
       momento = new Date();
       var horaFinal = momento.getHours() + ":" + momento.getMinutes() + ":" + momento.getSeconds();
 

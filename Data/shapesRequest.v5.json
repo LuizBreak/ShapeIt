@@ -2,50 +2,53 @@
     "Solicitudes" : [
             {
                 "nombre": "Arielle",
-
                 "tipoDeEntrega": "correo",
                 "correo": "arielle@gmail.com",
+                "MultipleFiles": false,
                 "orders" : 
                 [
                     {
+                        "shape": "Square",
                         "lado": ".",
                         "centro": ".",
                         "cantidad": 1,
                         "ratio" : 2
-
                     }
                 ]            
             },
             {
                 "nombre": "Franklin",
-
                 "tipoDeEntrega": "correo",
                 "correo": "Franklin@gmail.com",
+                "MultipleFiles": false,
                 "orders" : 
                 [
                     {
+                        "shape": "Square",
                         "lado": "0",
                         "centro": "0",
-                        "cantidad": 1,
-                        "ratio" : 1.75
+                        "cantidad": 3,
+                        "ratio" : 2
                     },
                     {
+                        "shape": "Diamond",
                         "lado": ".",
                         "centro": "*",
-                        "cantidad": 1,
-                        "ratio" : 0.75
+                        "cantidad": 2,
+                        "ratio" : 3
 
                     }
                 ]            
             },
             {
                 "nombre": "Mellissa",
-
                 "tipoDeEntrega": "correo",
                 "correo": "Mellissa@gmail.com",
+                "MultipleFiles": false,
                 "orders" : 
                 [
                     {
+                        "shape": "Diamond",
                         "lado": "^",
                         "centro": "v",
                         "cantidad": 1,

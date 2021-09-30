@@ -2,9 +2,9 @@
     "Solicitudes" : [
             {
                 "nombre": "Arielle",
-
                 "tipoDeEntrega": "correo",
                 "correo": "arielle@gmail.com",
+                "MultipleFiles": false,
                 "orders" : 
                 [
                     {

@@ -36,7 +36,7 @@ function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
     lineFeed = "\n";
   }
 
-  const shapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows + lineFeed;
+  const shapeConfiguration = "\n Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows + lineFeed;
   Shape = shapeConfiguration;
 
   for (var i = 0; i <= (rows+1); i++) {
@@ -158,7 +158,7 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
     // console.log("Flash in Controller: " + flash + " Output: " + outputType)
     var limite = Math.round((rows*2) * 0.3);
     
-    const shapeConfiguration = "Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
+    const shapeConfiguration = "\n Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
     Shape = shapeConfiguration;
 
     for (var i = 0; i < (rows * 2); i++) {
@@ -166,15 +166,15 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
       switch (true) {
 
         case (i == (limite - 1)):
-          Shape += aberturaCierre
+          Shape += aberturaCierre       // Up
           break;
         case (i < limite - 1):
-          Shape += headerFooter;
+          Shape += headerFooter;        // Up
           break;
         case (i == ((rows*2) - limite)):
-          Shape += aberturaCierre;
+          Shape += aberturaCierre;      // Down
           break;
-        case (i > ((rows*2) - limite)):
+        case (i > ((rows*2) - limite)): // Down
           Shape += headerFooter;
           break;
         default:
