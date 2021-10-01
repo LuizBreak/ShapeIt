@@ -1,7 +1,7 @@
 'use strict';
 
-import * as Shaper from './DrawShape.js';
-import { writeToFile, deleteFile, readFromFile, jsonReader, EnviarShapeToClient} from  './fileOperations.js'
+import * as Shaper from './src/DrawShape.js';
+import { writeToFile, deleteFile, readFromFile, jsonReader, EnviarShapeToClient} from  './utils/fileOperations.js'
 import fs from 'fs';
 
 var lado = "";
@@ -85,9 +85,9 @@ function processJsonRequests(filePath, flashOnScreen){
           
           if (multipleFiles) {
             fileContent = "";
-            var fileName = "./Data/" + nombre + "." + shape + ".order" +  j + ".txt";            
+            var fileName = "./Data/orders/" + nombre + "." + shape + ".order[" +  j + "].txt";            
           } else {
-            var fileName = "./Data/" + nombre + ".txt";
+            var fileName = "./Data/orders/" + nombre + ".txt";
           }
           // producir e imprimir solo un shape en la pantalla
           tempFileContent = Shaper.ShapeController(lado , centro, outpuType, shape, flashOnScreen, ratio);

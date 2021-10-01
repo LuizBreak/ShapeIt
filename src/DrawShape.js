@@ -1,4 +1,4 @@
-import { PonerLetras } from "./utils.js";
+import { PonerLetras } from "../utils/utils.js";
 
 function ShapeController(c1, c2, outputType, shapeType, flash, Ratio){
 

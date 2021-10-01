@@ -13,10 +13,10 @@
     <script language="javascript" type="module" src="./Calculadora.js"></script> -->
     <script type="module">
 
-      import {MyController} from "./Calculadora.js"
-      import {ShapeController} from "./DrawShape.js"
+      import {MyController} from "./src/Calculadora.js"
+      import {ShapeController} from "./src/DrawShape.js"
 
-      import * as utils from "./utils.js"
+      import * as utils from "./utils/utils.js"
       console.log(utils.helloWorld("Mickey"));
 
     </script>
@@ -70,7 +70,7 @@
               // contenido = MyController.MyController(1, 2);
               // console.log("value: " + contenido)
 
-              import("./Calculadora.js").then(calc => {
+              import("./src/Calculadora.js").then(calc => {
 
                 contenido = calc.MyController(desiredOperation, n1, n2);
                 document.getElementById("resultado").innerHTML = contenido;
@@ -87,7 +87,7 @@
               var c2 = document.getElementById("c2").value;
               
               var contenido = "";
-              import("./DrawShape.js").then(shapeMaker => {
+              import("./src/DrawShape.js").then(shapeMaker => {
 
                 contenido = shapeMaker.ShapeController(c1, c2, "web");
                 document.getElementById("Shape").innerHTML = contenido
