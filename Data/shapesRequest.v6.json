@@ -1,0 +1,112 @@
+{
+    "Solicitudes" : [
+            {
+                "nombre": "Arielle",
+                "tipoDeEntrega": "correo",
+                "correo": "arielle@gmail.com",
+                "multipleFiles": false,
+                "orders" : 
+                [
+                    {
+                        "lado": ".",
+                        "centro": "+",
+                        "cantidad": 1,
+                        "ratio": 2,
+                        "shape": "Rhombus"
+
+                    },
+                    {
+                        "lado": "+",
+                        "centro": "+",
+                        "cantidad": 2,
+                        "ratio": 2,
+                        "shape": "Diamond"
+
+                    }
+                    
+
+                ]            
+            },
+            {
+                "nombre": "Luiz",
+                "tipoDeEntrega": "correo",
+                "correo": "luiz@gmail.com",
+                "multipleFiles": true,
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1,
+                        "ratio": 1,
+                        "shape": "Square"
+
+                    },
+                    {
+                        "lado": "+",
+                        "centro": "+",
+                        "cantidad": 2,
+                        "ratio": 2,
+                        "shape": "Diamond"
+
+                    }
+                ]            
+            },
+            {
+                "nombre": "Melissa",
+                "tipoDeEntrega": "correo",
+                "correo": "melissa@gmail.com",
+                "multipleFiles": false,
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1,
+                        "ratio": 1,
+                        "shape": "Square"
+
+                    }
+
+                ]            
+            },
+            {
+                "nombre": "Franklin",
+                "tipoDeEntrega": "correo",
+                "correo": "franklin@gmail.com",
+                "multipleFiles": true,
+                "orders" : 
+                [
+                    {
+                        "lado": "#",
+                        "centro": "0",
+                        "cantidad": 1,
+                        "ratio": 1,
+                        "shape": "Square"
+
+                    }
+
+                ]            
+            },
+            {
+                "nombre": "Donald Duck",
+                "tipoDeEntrega": "correo",
+                "correo": "donald@gmail.com",
+                "multipleFiles": true,
+                "orders" : 
+                [
+
+                ]            
+            },
+            {
+                "nombre": "Mickey Mouse",
+                "tipoDeEntrega": "correo",
+                "correo": "mickey@gmail.com",
+                "multipleFiles": false,
+                "orders" : 
+                [
+
+                ]            
+            }
+        ]
+    }

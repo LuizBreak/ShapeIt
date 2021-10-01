@@ -2,16 +2,20 @@ import { PonerLetras } from "./utils.js";
 
 function ShapeController(c1, c2, outputType, shapeType, flash, Ratio){
 
-  if(shapeType == "Diamond"){
-    return MakeDiamondFlex(c1, c2, outputType, flash, Ratio)
-  } else if(shapeType == "Square"){
-    return MakeSquare (c1, c2, outputType, flash, Ratio)
-  } else {
-    return "Shape not implemented!"
+  switch (shapeType) {
+    case "Diamond":
+      return MakeDiamond(c1, c2, outputType, flash, Ratio);
+    case "Square":
+      return MakeSquare(c1, c2, outputType, flash, Ratio);
+    case "Rhombus":
+      return Makerhombus(c1, c2, outputType, flash, Ratio);
+    default:
+      return "Shape not implemented!"
+      break;
   }
 
 }
-function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
+function MakeDiamond (c1, c2, outputType, flash, ratio){
 
 /* Perfect base diamond
 
@@ -23,7 +27,7 @@ function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
 
 */
 
-  var colunas = Math.round( (3 + 1) * Ratio);  // # de columnas del area de trabajo
+  var colunas = Math.round( (3 + 1) * ratio);  // # de columnas del area de trabajo
   var rows = colunas;                          // # de rows del area de trabajo
   var lado = 0;
 
@@ -36,7 +40,7 @@ function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
     lineFeed = "\n";
   }
 
-  const shapeConfiguration = "\n Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows + lineFeed;
+  const shapeConfiguration = "\n Ratio: " + ratio + " Columns: " + colunas + " Rows: " + rows + lineFeed;
   Shape = shapeConfiguration;
 
   for (var i = 0; i <= (rows+1); i++) {
@@ -53,42 +57,7 @@ function MakeDiamondFlex (c1, c2, outputType, flash, Ratio){
   }
   return Shape;
 }
-function MakeDiamond (c1, c2, outputType, flash, Ratio){
-
-    // console.log("Output Type Requested: " + outputType);
-
-    var rows = 30;
-    var Shape = "";
-    var lineFeed = "\n";
-
-    if (outputType == "web") {
-      lineFeed = "<br>";
-    } else {
-      lineFeed = "\n";
-    }
-
-    // console.log("Flash in Controller: " + flash + " Output: " + outputType)
-
-    for (var i = 0; i <= rows; i++) {
-      if( i == 0 ){
-        Shape += Izquierda(rows-i+1, c1, flash) + "^" + Derecha(rows-i, c1, flash) + lineFeed;
-      } else {
-        Shape += Izquierda(rows-i, c1, flash) + "/" + Centro(61-2*(rows-i), c2, flash) + "\\" + Derecha(rows-i, c1, flash) + lineFeed;
-      }
-      if (outputType != "web" && flash) process.stdout.write("\n");
-    }
-
-    for (var i = rows; i >= 0; i--) {
-      if( i == 0 ){
-        Shape += Izquierda(rows-i+1, c1, flash) + "v" + Derecha(rows-i, c1, flash) + lineFeed;
-      } else {
-        Shape += Izquierda(rows-i, c1, flash) + "\\" + Centro(61-2*(rows-i), c2, flash) + "/" + Derecha(rows-i, c1, flash) + lineFeed;
-      }
-      if (outputType != "web" && flash) process.stdout.write("\n");
-    }
-    return Shape;
-}
-function MakeSquare (c1, c2, outputType, flash, Ratio){
+function MakeSquare (c1, c2, outputType, flash, ratio){
 
 /* Equations and Shape Explation
 
@@ -127,11 +96,11 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
 
   */
 
-    var colunas = Math.round(24 * Ratio);                // # de columnas del area de trabajo
-    var centro = Math.round((colunas * 0.4) * Ratio);    // # de columnas dentro del shape
+    var colunas = Math.round(24 * ratio);                // # de columnas del area de trabajo
+    var centro = Math.round(colunas * 0.4);    // # de columnas dentro del shape
 
-    var rows = Math.round((colunas * 0.25) * Ratio);     // # de vultas de una mitad
-    var lateral = Math.round((colunas * 0.25) * Ratio);  // # de columnas afuera del shape
+    var rows = Math.round(colunas * 0.25);     // # de vultas de una mitad
+    var lateral = Math.round(colunas * 0.25);  // # de columnas afuera del shape
 
     // Make sure to adjust colunas after round up problems
     const finalCuerpoSize = (2 * lateral) + centro + 2;
@@ -158,7 +127,7 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
     // console.log("Flash in Controller: " + flash + " Output: " + outputType)
     var limite = Math.round((rows*2) * 0.3);
     
-    const shapeConfiguration = "\n Ratio: " + Ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
+    const shapeConfiguration = "\n Ratio: " + ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
     Shape = shapeConfiguration;
 
     for (var i = 0; i < (rows * 2); i++) {
@@ -208,6 +177,85 @@ function MakeSquare (c1, c2, outputType, flash, Ratio){
     //   GetLineFeed(outputType, flash);
     // }
     return Shape;
+}
+function Makerhombus(c1, c2, outputType, flash, ratio){
+  /*
+  ....................... (24 colunas)
+  .......................
+  [2 rows]
+  ........[8]++++++++++++++[14].[1]
+  .......|............|..
+  ......|............|...
+  .....|............|....
+  ....|............|.....
+  ...|............|......
+  ..|............|.......
+  .|............|........
+  ++++++++++++++.........
+   [8 rows]
+  ........................
+  ........................
+  [12]
+
+  */
+  var colunas = Math.round(24 * ratio);                // # de columnas del area de trabajo
+  var centro = Math.round((colunas * 0.70));    // # de columnas dentro del shape
+
+  var rows = Math.round(colunas * 0.25);     // # de vultas de una mitad
+  var lateral = Math.round(colunas * 0.20);  // # de columnas afuera del shape
+
+  var Shape = "";      // Contenido del shape
+  var lineFeed = "\n";
+
+  if (outputType == "web") {
+    lineFeed = "<br>";
+  } else {
+    lineFeed = "\n";
+  }
+
+  var headerFooter = Centro(colunas, c1, flash) + lineFeed;
+  var aberturaCierre = ""
+  var cuerpo = "";
+  
+  var limite = Math.round((rows*2) * 0.3);
+  
+  const shapeConfiguration = "\n Ratio: " + ratio + " Columns: " + colunas + " Rows: " + rows*2 + " Lado: " + lateral + " Centro: " + centro + lineFeed;
+  Shape = shapeConfiguration;
+
+  var offSet = 0;
+  var LateralDireita = (colunas - (centro+2) );
+
+  for (var i = 0; i < (rows * 2); i++) {
+
+    switch (true) {
+
+      case (i == (limite - 1)):
+        // aberturaCierre Up
+        Shape += Izquierda(LateralDireita - offSet, c1, flash)  + "+" + Centro(centro, "-", flash) +  "+" +  Derecha(offSet, c1, flash) + lineFeed;   // Up
+        offSet += 1;
+        break;
+      case (i < limite - 1):
+        Shape += headerFooter;        // Up
+        break;
+      case (i == ((rows*2) - limite)):
+        // aberturaCierre Down
+        Shape += Izquierda(LateralDireita-offSet, c1, flash)  + "+" + Centro(centro, "-", flash) +  "+" +  Derecha(offSet, c1, flash) + lineFeed;
+        offSet += 1;
+        break;
+      case (i > ((rows*2) - limite)): // Down
+        Shape += headerFooter;
+        break;
+      default:
+        // cuerpo
+        cuerpo = Izquierda(LateralDireita-offSet, c1, flash) + Centro(1, "/", flash) + Centro(centro, c2, flash) + Centro(1, "/", flash) + Derecha(offSet, c1, flash) + lineFeed;
+        Shape += cuerpo;
+        offSet += 1;
+        break;
+    }
+    GetLineFeed(outputType, flash);
+  }
+
+  return Shape;
 }
 function GetLineFeed (outputType, flash){
 
