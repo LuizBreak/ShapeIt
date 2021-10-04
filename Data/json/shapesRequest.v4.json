@@ -13,7 +13,7 @@
                         "lado": ".",
                         "centro": "*",
                         "cantidad": 1,
-                        "ratio" : 3
+                        "ratio" : 1
 
                     },
                     {
@@ -21,7 +21,7 @@
                         "lado": ".",
                         "centro": "*",
                         "cantidad": 1,
-                        "ratio" : 3
+                        "ratio" : 1
 
                     },
                     {
@@ -29,7 +29,7 @@
                         "lado": "#",
                         "centro": ":",
                         "cantidad": 1,
-                        "ratio" : 3
+                        "ratio" : 2
 
                     }
 

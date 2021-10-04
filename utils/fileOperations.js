@@ -53,17 +53,3 @@ export function EnviarShapeToClient(nombreDelArchivo, correo){
   // console.log ('Correo enviado a:' + correo + " con el adjunto: " + nombreDelArchivo)
 };
 
-
-// main testing callers
-// var fileContent = await readFromFile ('MyShape.txt', (err)=>{ 
-//   if (err) { 
-//     console.log(err); 
-//   } 
-// });
-
-// await writeToFile('fileFromPromise.v1.txt', fileContent, (err)=>{ 
-//   if (err) { 
-//     console.log(err); 
-//   } 
-// }); 
-
