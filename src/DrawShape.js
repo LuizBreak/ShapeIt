@@ -9,12 +9,175 @@ function ShapeController(c1, c2, outputType, shapeType, flash, Ratio){
       return MakeSquare(c1, c2, outputType, flash, Ratio);
     case "Rhombus":
       return Makerhombus(c1, c2, outputType, flash, Ratio);
+    case "Cross":
+        return MakeCross(c1, c2, outputType, flash, Ratio);
     default:
       return "Shape not implemented!"
       break;
   }
 
 }
+function getBiggerSize(num1, num2, num3){
+
+  if( num1 >= num2 && num1 >= num3){
+    console.log(num1+" is the largest Number");
+    return num1;
+  } else if (num2 >= num1 && num2 >= num3){
+    console.log(num2+" is the largest Number");
+    return num2;
+  } else
+      console.log(num3+" is the largest Number");
+      return num3;
+
+}
+function MakeCross (c1, c2, outputType, flash, ratio){
+/*
+......................... headerFooter -> columnas [25] -> HeaderFooter
+......................... limite [2] = columnas * 0.08
+..........+++++.......... aberturaCierre -> Izquierdo [10 - lado1 = columnas * 0.40] Border [5 - Top1 = columnas * 0.20] Derecho [lado1] -> AperturaCierre
+..........+...+.......... cuerpo -> Izquierdo [lado1] Border[1] Centro [3 - Tcentro1 = columnas * 0.12] Border[1] Derecho [=] -> Cuerpo1
+..........+...+..........
+....+++++++...+++++++.... cuerpo2 -> Izquierdo [4 - lado2 = columnas * 0.16] Border[7 - Top2 = columnas * 0.28] Centro [Tcentro1] Border[=] Derecho [lado2] -> Cuerpo2
+....+...............+.... cuerpo3 -> Izquierdo [lado2] Border[1] Centro [Tcentro2 = columnas * 0.60] Border[1] Derecho [lado2] -> Cuerpo3
+....+...............+....
+....+++++++...+++++++....
+..........+...+..........
+..........+...+..........
+..........+++++.......... 
+......................... 
+......................... rows [14]
+
+
+......................... [25]
+.........................
+..........-----.......... [10]+[5]+[10]
+..........|...|.......... [10]+[1]+[3]+[1]+[10]
+..........|...|..........
+.....---------------..... [5]+[1]+[13]+[1]+[5]
+.....|.............|..... [5]+[1]+[13]+[1]+[5]
+.....|.............|.....
+.....---------------.....
+..........|...|..........
+..........|...|..........
+..........-----..........
+.........................
+......................... Rows[14]
+
+
+*/
+
+    var columnas = Math.round(25 * ratio);      // # de columnas del area de trabajo
+
+    var rows = Math.round(columnas * 0.28);     // # de filas del area de trabajo
+
+    var lateral = Math.round(columnas * 0.4);  // # de columnas afuera del shape
+    var lateral1 = Math.round(columnas * 0.2);
+
+    var Tcentro1 = Math.round(columnas * 0.12)
+    var Tcentro2 = Math.round(columnas * 0.52)
+
+    var top1 = Math.round(columnas * 0.2);
+    var top2 = Math.round(columnas * 0.28);
+
+    var limite = Math.round((columnas) * 0.12);
+    var limite2 = Math.round((columnas) * 0.24);
+
+    var Shape = "";      // Contenido del shape
+    var lineFeed = "\n";
+
+    if (outputType == "web") {
+      lineFeed = "<br>";
+    } else {
+      lineFeed = "\n";
+    }
+    // .........................
+    var headerFooter = Centro(columnas, c1, flash) + lineFeed;
+
+    // ..........-----..........
+    var aperturaCierre = Izquierda(lateral, c1, flash) + Centro(1, "-", flash) + Centro(Tcentro1, "-", flash) + Centro(1, "-", flash) + Derecha(lateral, c1, flash) + lineFeed;
+    
+    // ..........|...|.......... 
+    var cuerpo = Izquierda(lateral, c1, flash) + Centro(1, "|", flash) + Centro(Tcentro1, c2, flash) + Centro(1, "|", flash) + Derecha(lateral, c1, flash) + lineFeed;
+    
+    // .....------...------.....
+    var wing = Izquierda(lateral1, c1, flash) + Centro(1, "-", flash) +  Centro(Tcentro2, "-", flash) + Centro(1, "-", flash) + Derecha(lateral1, c1, flash) + lineFeed;
+    
+    // .....|.............|.....
+    var cuerpo2 = Izquierda(lateral1, c1, flash) + Centro(1, "|", flash) + Centro(Tcentro2, c2, flash) + Centro(1, "|", flash) + Derecha(lateral1, c1, flash) + lineFeed;
+
+    // Make sure to adjust colunas size after round up problems
+    var maxSize = getBiggerSize(cuerpo.length, wing.length, cuerpo2.length);
+
+    // if (columnas < maxSize) {
+    //   columnas += maxSize - columnas;
+    //   headerFooter = Centro(columnas, c1, flash) + lineFeed;
+    // }
+    // if (aperturaCierre.length < maxSize){
+    //   Tcentro1 += maxSize - aperturaCierre.length;
+    //   var aperturaCierre = Izquierda(lateral, c1, flash) + Centro(1, "-", flash) + Centro(Tcentro1, "-", flash) + Centro(1, "-", flash) + Derecha(lateral, c1, flash) + lineFeed;
+    // }
+    // if (cuerpo.length < maxSize) {
+    //   Tcentro1 += maxSize - aperturaCierre.length;
+    //   cuerpo = Izquierda(lateral, c1, flash) + Centro(1, "|", flash) + Centro(Tcentro1, c2, flash) + Centro(1, "|", flash) + Derecha(lateral, c1, flash) + lineFeed;
+    // }
+    // if (wing.length < maxSize) {
+    //   Tcentro1 += maxSize - wing.length;
+    //   var wing = Izquierda(lateral1, c1, flash) + Centro(top2, "-", flash) +  Centro(Tcentro1, c2, flash) + Centro(top2, "-", flash) + Derecha(lateral1, c1, flash) + lineFeed;
+    // }
+    // if (cuerpo2.length < maxSize) {
+    //   Tcentro2 += maxSize - cuerpo2.length;
+    //   cuerpo2 = Izquierda(lateral1, c1, flash) + Centro(1, "|", flash) + Centro(Tcentro2, c2, flash) + Centro(1, "|", flash) + Derecha(lateral1, c1, flash) + lineFeed;
+    // }
+
+    const shapeConfiguration = "\n Ratio: " + ratio + " Columns: " + columnas + " Rows: " + rows*2 + lineFeed;
+    Shape = shapeConfiguration;
+
+    // print points
+    var printApertura = (limite - 1);
+    var printCierre = (rows*2) - limite;
+    var printWingUp = (limite2 - 1);
+    var printWingDown = (rows*2) - printWingUp - 1;
+
+    for (var i = 0; i < (rows * 2); i++) {
+
+      switch (true) {
+        case (i < printApertura):
+          Shape += headerFooter;        // .........................
+          break;
+        case (i == printApertura):
+          Shape += aperturaCierre       // ..........-----..........
+          break;
+        case (printApertura < i && i < printWingUp):
+          Shape += cuerpo;              // ..........|...|..........
+          break;
+        case (i == printWingUp):        // .....------...------.....
+          Shape += wing;
+          break;
+        case (printWingUp < i && i < printWingDown):
+          Shape += cuerpo2;             // .....|.............|.....
+          break;
+        case (i == printWingDown):
+          Shape += wing;             // .....------...------.....
+          break;
+        case (printWingDown < i && i < printCierre):
+          Shape += cuerpo;              // ..........|...|..........
+          break;
+        case (i == printCierre):
+          Shape += aperturaCierre;      // ..........-----..........
+          break;
+        case (i > printCierre):         // .........................
+          Shape += headerFooter;
+          break;
+        default:
+          Shape += "*** Error ***" + lineFeed;
+          break;
+      }
+
+      GetLineFeed(outputType, flash);
+    }
+    return Shape;
+}
+
 function MakeDiamond (c1, c2, outputType, flash, ratio){
 
 /* Perfect base diamond

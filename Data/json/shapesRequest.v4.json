@@ -9,6 +9,14 @@
                 "orders" : 
                 [
                     {
+                        "shape": "Cross",
+                        "lado": ".",
+                        "centro": ".",
+                        "cantidad": 1,
+                        "ratio" : 2
+
+                    },
+                    {
                         "shape": "Square",
                         "lado": ".",
                         "centro": "*",
