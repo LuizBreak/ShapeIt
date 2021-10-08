@@ -9,12 +9,18 @@
                 "orders" : 
                 [
                     {
+                        "shape": "Envelope",
+                        "lado": ".",
+                        "centro": ".",
+                        "cantidad": 1,
+                        "ratio" : 1
+                    },
+                    {
                         "shape": "Cross",
                         "lado": ".",
                         "centro": ".",
                         "cantidad": 1,
                         "ratio" : 2
-
                     },
                     {
                         "shape": "Square",
@@ -22,7 +28,6 @@
                         "centro": "*",
                         "cantidad": 1,
                         "ratio" : 1
-
                     },
                     {
                         "shape": "Diamond",
@@ -30,7 +35,6 @@
                         "centro": "*",
                         "cantidad": 1,
                         "ratio" : 1
-
                     },
                     {
                         "shape": "Rhombus",
@@ -38,9 +42,7 @@
                         "centro": ":",
                         "cantidad": 1,
                         "ratio" : 2
-
                     }
-
                 ]            
             }
 

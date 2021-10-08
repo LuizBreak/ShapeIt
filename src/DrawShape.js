@@ -177,7 +177,6 @@ function MakeCross (c1, c2, outputType, flash, ratio){
     }
     return Shape;
 }
-
 function MakeDiamond (c1, c2, outputType, flash, ratio){
 
 /* Perfect base diamond
@@ -419,6 +418,39 @@ function Makerhombus(c1, c2, outputType, flash, ratio){
   }
 
   return Shape;
+}
+function MakeEnvelope(c1, c2, c3, outputType, flash, ratio){
+  /*
+    c1="#", c2="+", c3="o", outputType="terminal", flash=false, ration=1
+
+    columnas = [26]
+    rows = [16] columnas * 0.61
+    
+    01 ########################## [26#]
+    02 ########################## limiteArriba = rows * 0.12
+    03 ##|+\+++++++++++++++++++## [2#][1|][1+][1\][19+][2#]
+    04 ##|++\ooooooooooooooooo+## [2#][1|][+ -> 1] [o -> -1][2#]
+    05 ##|+++\oooooooooooooooo+##
+    06 ##|++++\ooooooooooooooo+##
+    07 ##|+++++\oooooooooooooo+##
+    08 ##|++++++\ooooooooooooo+## limiteMedio = rows * 0.5
+    09 ##|++++++/ooooooooooooo+## 
+    10 ##|+++++/oooooooooooooo+##
+    11 ##|++++/ooooooooooooooo+##
+    12 ##|+++/oooooooooooooooo+##
+    13 ##|++/ooooooooooooooooo+##
+    14 ##|+/+++++++++++++++++++##
+    15 ########################## LimiteAbajo = rows - LimiteArriba
+    16 ##########################
+
+    tamanoDelCuerpo = columnas * 0.84
+    footerHeader    = centro(columnas, c1)
+    aperturaCierre  = "##|" + Izquierda(i-1, c2) + "\" + Derecho(tamanoDelCuerpo - (i+1), c2) + "+##" +
+    cuerpo          = "##|" + Izquierda(i-1, c2) + "\" + Derecho(tamanoDelCuerpo - (i+1), c3) + "+##" +
+
+
+
+  *
 }
 function GetLineFeed (outputType, flash){
 
