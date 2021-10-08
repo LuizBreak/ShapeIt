@@ -1,5 +1,7 @@
 'use strict';
 
+// Run application: node ShapeOnTerminal.js terminal false "./Data/json/shapesRequest.v4.json"
+
 import * as Shaper from './src/DrawShape.js';
 import { writeToFile, deleteFile, readFromFile, jsonReader, EnviarShapeToClient} from  './utils/fileOperations.js'
 import fs from 'fs';
