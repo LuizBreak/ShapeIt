@@ -77,7 +77,8 @@ function processJsonRequests(filePath, flashOnScreen){
           const lado = collection.Solicitudes[index].orders[j].lado;
           const centro = collection.Solicitudes[index].orders[j].centro; 
           const ratio = collection.Solicitudes[index].orders[j].ratio; 
-          const shape = collection.Solicitudes[index].orders[j].shape; 
+          const shape = collection.Solicitudes[index].orders[j].shape;
+          const fill = collection.Solicitudes[index].orders[j].fill;  
 
           // console.log('Inicio-> Cliente:' + nombre + ' Cantidad de solicitudes: ' + cantidad + "\n\n");
           console.log("\n Order [" + nombre + "] [" + j + "] | " + cantidad + " | " + lado + " | " + centro + " | " + "\n");
@@ -92,7 +93,7 @@ function processJsonRequests(filePath, flashOnScreen){
             var fileName = "./Data/orders/" + nombre + ".txt";
           }
           // producir e imprimir solo un shape en la pantalla
-          tempFileContent = Shaper.ShapeController(lado , centro, outpuType, shape, flashOnScreen, ratio);
+          tempFileContent = Shaper.ShapeController(lado , centro, fill, outpuType, shape, flashOnScreen, ratio);
           
           // console.log(tempFileContent + "\n\n");
 

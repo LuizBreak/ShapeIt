@@ -1,6 +1,6 @@
 import { PonerLetras, reverseShape, getReversed } from "../utils/utils.js";
 
-function ShapeController(c1, c2, outputType, shapeType, flash, Ratio){
+function ShapeController(c1, c2, c3, outputType, shapeType, flash, Ratio){
 
   switch (shapeType) {
     case "Diamond":
@@ -12,7 +12,7 @@ function ShapeController(c1, c2, outputType, shapeType, flash, Ratio){
     case "Cross":
       return MakeCross(c1, c2, outputType, flash, Ratio);
     case "Envelope":
-      return MakeEnvelope(c1, c2, "o", outputType, flash, Ratio);
+      return MakeEnvelope(c1, c2, c3, outputType, flash, Ratio);
 
     default:
       return "Shape not implemented!"
@@ -448,10 +448,11 @@ function MakeEnvelope(c1, c2, c3, outputType, flash, ratio){
 
     tamanoDelCuerpo = columnas * 0.84
 
-    headerFooter    = Centro(columnas, c1) + lineFeed;
-    aperturaCierre  = "##|" + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c2) + "+##" + lineFeed;
-    cuerpo =  "##|" + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c3) + "+##" + lineFeed;
-  
+    headerFooter    += Centro(columnas, c1) + lineFeed;
+    aperturaCierre  += Izquierda(lado, c1) + "|" + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c2) + Izquierda(lado, c1) + lineFeed;
+    cuerpo          +=  Izquierda(lado, c1) + "|"  + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+2), c3) + c2 + Izquierda(lado, c1) + lineFeed;
+    lado = limiteArriba
+
     */
 
     var columnas = Math.round(26 * ratio);                // # de columnas del area de trabajo
@@ -461,19 +462,22 @@ function MakeEnvelope(c1, c2, c3, outputType, flash, ratio){
     var limiteArriba = Math.round(rows* 0.12);
     var limiteAbajo = Math.round(rows - limiteArriba);
     var limiteMedio = Math.round(rows * 0.5)
+    var lado = limiteArriba;
 
     var Shape = "";      // Contenido del shape
     var lineFeed = "\n";
 
-    var headerFooterUp      = ""
-    var aperturaCierreUp    = ""
+    var headerFooterUp      = "";
+    var aperturaCierreUp    = "";
     var cuerpoUp            = "";
-    var headerFooterDown    = ""
-    var aperturaCierreDown  = ""
+    var headerFooterDown    = "";
+    var aperturaCierreDown  = "";
     var cuerpoDown          = "";
 
+
+
     for (var i = 0; i < rows; i++) {
-      let j = rows - i;
+
       switch (true) {
 
         case (i < limiteArriba):
@@ -485,20 +489,21 @@ function MakeEnvelope(c1, c2, c3, outputType, flash, ratio){
         case (i == limiteArriba):
           // ##|+\+++++++++++++++++++##
           // ##|+/+++++++++++++++++++##
-          aperturaCierreUp += Izquierda(2, c1) + "|" + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c2) + Izquierda(2, c1) + lineFeed;
-          aperturaCierreDown += Izquierda(2, c1) + "|" + Izquierda(j, c2) + "/" + Derecha(tamanoDelCuerpo - j, c2) + Izquierda(2, c1) + lineFeed;
+          aperturaCierreUp  += Izquierda(lado, c1) + "|" + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c2) + Izquierda(lado, c1) + lineFeed;
+          aperturaCierreDown = Izquierda(lado, c1) + "|" + Izquierda(i-1, c2) + "/"  + Derecha(tamanoDelCuerpo - (i+1), c2) + Izquierda(lado, c1) + lineFeed + aperturaCierreDown;
           break;
 
-          case (i > limiteArriba && i < limiteMedio):
+        case (i > limiteArriba && i < limiteMedio):
           // ##|++\ooooooooooooooooo+## 
           // ##|++/ooooooooooooooooo+## 
-          cuerpoUp +=  Izquierda(2, c1) + "|"  + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+1), c3) + Izquierda(2, c1) + lineFeed;
-          cuerpoDown +=  Izquierda(2, c1) + "|"  + Izquierda(j, c2) + "/" + Derecha(tamanoDelCuerpo - j, c3) + Izquierda(2, c3) + Izquierda(2, c1) + lineFeed;
+          cuerpoUp  +=  Izquierda(lado, c1) + "|"  + Izquierda(i-1, c2) + "\\" + Derecha(tamanoDelCuerpo - (i+2), c3) + c2 + Izquierda(lado, c1) + lineFeed;
+          cuerpoDown =  Izquierda(lado, c1) + "|"  + Izquierda(i-1, c2) +  "/" + Derecha(tamanoDelCuerpo - (i+2), c3) + c2 + Izquierda(lado, c1) + lineFeed + cuerpoDown;
           break;
       }
     }
-    Shape += headerFooterUp + aperturaCierreUp + cuerpoUp;
-    // Shape += cuerpoDown + aperturaCierreDown + headerFooterDown;
+    Shape += headerFooterUp + aperturaCierreUp + cuerpoUp;        // up part of the shape
+    Shape += cuerpoDown + aperturaCierreDown + headerFooterDown;  // bottom part of the shape
+    
     return Shape;
 }
 function GetLineFeed (outputType, flash){

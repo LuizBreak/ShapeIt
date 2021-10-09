@@ -1,47 +1,20 @@
 {
     "Solicitudes" : [
             {
-                "nombre": "Arielle",
+                "nombre": "Donald Duck",
 
                 "tipoDeEntrega": "correo",
-                "correo": "arielle@gmail.com",
+                "correo": "dd@gmail.com",
                 "multipleFiles": true,
                 "orders" : 
                 [
                     {
                         "shape": "Envelope",
                         "lado": ".",
-                        "centro": ".",
+                        "centro": "0",
+                        "fill": "0",
                         "cantidad": 1,
-                        "ratio" : 1
-                    },
-                    {
-                        "shape": "Cross",
-                        "lado": ".",
-                        "centro": ".",
-                        "cantidad": 1,
-                        "ratio" : 2
-                    },
-                    {
-                        "shape": "Square",
-                        "lado": ".",
-                        "centro": "*",
-                        "cantidad": 1,
-                        "ratio" : 1
-                    },
-                    {
-                        "shape": "Diamond",
-                        "lado": ".",
-                        "centro": "*",
-                        "cantidad": 1,
-                        "ratio" : 1
-                    },
-                    {
-                        "shape": "Rhombus",
-                        "lado": "#",
-                        "centro": ":",
-                        "cantidad": 1,
-                        "ratio" : 2
+                        "ratio": 1
                     }
                 ]            
             }
