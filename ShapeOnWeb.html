@@ -89,7 +89,7 @@
               var contenido = "";
               import("./src/DrawShape.js").then(shapeMaker => {
 
-                contenido = shapeMaker.ShapeController(c1, c2, "web");
+                contenido = shapeMaker.ShapeController(c1, c2, "?", "web", "Square", false, 1);
                 document.getElementById("Shape").innerHTML = contenido
                 console.log("value: " + contenido);
                 callHello();
@@ -97,7 +97,7 @@
 
             }
             function callHello(){
-              //utils.helloWorld("Mickey")
+              utils.helloWorld("Mickey")
             }
         </script>
         

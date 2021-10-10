@@ -9,10 +9,10 @@
                 "orders" : 
                 [
                     {
-                        "shape": "Envelope",
-                        "lado": ".",
-                        "centro": "0",
-                        "fill": "0",
+                        "shape": "Square",
+                        "lado": "@",
+                        "centro": "+",
+                        "fill": ".",
                         "cantidad": 1,
                         "ratio": 1
                     }

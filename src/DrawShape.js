@@ -459,7 +459,7 @@ function MakeEnvelope(c1, c2, c3, outputType, flash, ratio){
     var rows = Math.round(columnas * 0.61);               // # de vultas de una mitad
     var tamanoDelCuerpo = Math.round(columnas * 0.84);    // # de columnas dentro del shape
 
-    var limiteArriba = Math.round(rows* 0.12);
+    var limiteArriba = Math.round(rows * 0.12);
     var limiteAbajo = Math.round(rows - limiteArriba);
     var limiteMedio = Math.round(rows * 0.5)
     var lado = limiteArriba;
