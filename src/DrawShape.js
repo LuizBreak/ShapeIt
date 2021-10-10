@@ -15,7 +15,7 @@ function ShapeController(c1, c2, c3, outputType, shapeType, flash, Ratio){
       return MakeEnvelope(c1, c2, c3, outputType, flash, Ratio);
 
     default:
-      return "Shape not implemented!"
+      return "Shape " + shapeType + " not implemented!"
       break;
   }
 

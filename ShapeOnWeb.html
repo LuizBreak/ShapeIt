@@ -9,8 +9,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 
     <!-- Link to External JavaScript -->
-    <!-- <script language="javascript" type="module" src="./DrawShape.js"></script>
-    <script language="javascript" type="module" src="./Calculadora.js"></script> -->
+    <!-- 
+      <script language="javascript" type="module" src="./DrawShape.js"></script>
+      <script language="javascript" type="module" src="./Calculadora.js"></script> 
+     -->
+    
     <script type="module">
 
       import {MyController} from "./src/Calculadora.js"
@@ -20,7 +23,10 @@
       console.log(utils.helloWorld("Mickey"));
 
     </script>
-
+    
+    <link rel="stylesheet" type="text/css" href="./src/mainstyle.css">
+    <script src="./src/jstut7.js"></script>
+  
   </head>
 
     <body>
@@ -45,20 +51,41 @@
 
         <button onclick="CallCalculator()">Execute</button>
 
-        <br><br>
+        <h2>Target Shape Maker</h2>
 
-        <label for="c1">Caracter de los lados:</label>
-        <input type="text" id="c1" name="c1" size="2"><br><br>
-        <label for="c2">Caracter del centro:</label>
-        <input type="text" id="c2" name="c2" size="2"><br><br>
+        <div>
+  
+          <label for="operation">Select Shape Type:</label>
+          <select name="shape" id="shape">
+            <option value="Square">Square</option>
+            <option value="Rhombus">Rhombus </option>
+            <option value="Cross">Cross</option>
+            <option value="Diamond">Diamond</option>
+          </select>
+  
+          <label for="c1">Caracter de los lados:</label>
+          <input type="text" id="c1" name="c1" size="2" value="+">
+          <label for="c2">Caracter del centro:</label>
+          <input type="text" id="c2" name="c2" size="2" value="o">
+          <label for="c3">Caracter para llenar:</label>
+          <input type="text" id="c3" name="c3" size="2" value=".">
+          <label for="ratio">Ratio:</label>
+          <input type="text" id="ratio" name="ratio" size="2" value="1">
 
-        <button onclick="CallShapeController()">Draw Shape</button>
-
-        <button onclick="callHello()">call it</button>
+          <button onclick="CallShapeController()">Draw Shape</button>
+        </div>
 
         <p id="resultado"></p>
         <p id="Shape"></p>
 
+        <div class="wrapper">
+          <canvas id="my-canvas" width="600" height="600"></canvas>
+          <div id="img-data-div">
+              <a href="#" id="img-file" download="image.png">download image</a>
+          </div>
+
+      </div>
+  </body>
         <script>
             function CallCalculator(){
               
@@ -83,21 +110,40 @@
             }
             function CallShapeController(){
 
+              var desiredShape = document.getElementById("shape").value;
               var c1 = document.getElementById("c1").value;
               var c2 = document.getElementById("c2").value;
-              
+              var c3 = document.getElementById("c3").value;
+              var ratio = document.getElementById("ratio").value;
+
               var contenido = "";
               import("./src/DrawShape.js").then(shapeMaker => {
 
-                contenido = shapeMaker.ShapeController(c1, c2, "?", "web", "Square", false, 1);
-                document.getElementById("Shape").innerHTML = contenido
-                console.log("value: " + contenido);
-                callHello();
+                contenido = shapeMaker.ShapeController(c1, c2, c3, "web", desiredShape, false, ratio);
+                // document.getElementById("Shape").innerHTML = contenido
+                // console.log("value: " + contenido);
+
+                var canvas = document.getElementById("my-canvas");
+                var ctx = canvas.getContext("2d");
+                ctx.font = "15px Courier";
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // ctx.textBaseline = 'middle';
+                // ctx.textAlign = "center";
+
+                // Article reference: http://jsfiddle.net/BaG4J/1/
+                var txt = contenido;
+                var x = 30;
+                var y = 30;
+                var lineheight = 15;
+                var lines = txt.split('<br>');
+
+                for (var i = 0; i<lines.length; i++)
+                  ctx.fillText(lines[i], x, y + (i*lineheight) );
+
               });
 
-            }
-            function callHello(){
-              utils.helloWorld("Mickey")
+
             }
         </script>
         
